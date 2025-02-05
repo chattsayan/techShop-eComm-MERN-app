@@ -1,0 +1,30 @@
+{
+  "name": "techshop",
+  "version": "1.0.0",
+  "description": "eCommerce application built with MERN stack",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "server": "nodemon backend/server.js",
+    "client": "npm start --prefix Frontend",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "data:import": "node backend/seeder.js -i",
+    "data:destroy": "node backend/seeder.js -d"
+  },
+  "author": "Sayan Chatterjee",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "colors": "^1.4.0",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "mongoose": "^8.9.7",
+    "validator": "^13.12.0"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "dotenv": "^16.4.7",
+    "nodemon": "^3.1.9"
+  }
+}
