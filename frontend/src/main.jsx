@@ -10,6 +10,8 @@ import {
 } from "react-router-dom";
 import Home from "./pages/Home.jsx";
 import ProductScreen from "./pages/ProductScreen.jsx";
+import { Provider } from "react-redux";
+import appStore from "./utils/appStore.js";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -22,6 +24,8 @@ const router = createBrowserRouter(
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <Provider store={appStore}>
+      <RouterProvider router={router} />
+    </Provider>
   </StrictMode>
 );
