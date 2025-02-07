@@ -3,9 +3,11 @@ import { assets } from "../assets/assets";
 import { PiShoppingCartSimpleBold, PiUserBold } from "react-icons/pi";
 import { IoChevronBack } from "react-icons/io5";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 const Header = () => {
   const [visible, setVisible] = useState(false);
+  const { cartItems } = useSelector((store) => store.cart);
 
   return (
     <div className="flex items-center justify-between py-5 px-5 font-medium bg-slate-200 shadow-md">
@@ -20,7 +22,14 @@ const Header = () => {
       <div className="flex items-center gap-6">
         <ul className="hidden sm:flex gap-5 text-sm text-gray-700">
           <li className="flex items-center gap-1">
-            <PiShoppingCartSimpleBold size={24} />
+            <div className="relative">
+              <PiShoppingCartSimpleBold size={24} />
+              {cartItems.length > 0 && (
+                <p className="absolute right-[-5px] top-[-5px] w-4 text-center leading-4 bg-red-700 text-white aspect-square rounded-full text-[8px] font-semibold">
+                  {cartItems.reduce((a, c) => a + c.quantity, 0)}
+                </p>
+              )}
+            </div>
             <Link to="/cart">Cart</Link>
           </li>
           <li className="flex items-center gap-1">
@@ -53,7 +62,7 @@ const Header = () => {
           <Link
             onClick={() => setVisible(false)}
             className="py-2 pl-6 border"
-            to="/"
+            to="/cart"
           >
             CART
           </Link>

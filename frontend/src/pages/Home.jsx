@@ -1,3 +1,5 @@
+import Loader from "../components/Loader";
+import Message from "../components/Message";
 import Product from "../components/Product";
 // import { useEffect, useState } from "react";
 // import axios from "axios";
@@ -24,9 +26,11 @@ const Home = () => {
   return (
     <div>
       {isLoading ? (
-        <>Loading...</>
+        <Loader />
       ) : error ? (
-        <div>{error?.data?.message || error.error}</div>
+        <Message variant="danger">
+          {error?.data?.message || error.error}
+        </Message>
       ) : (
         <>
           <h1 className="text-2xl font-bold mb-4">Latest Products</h1>

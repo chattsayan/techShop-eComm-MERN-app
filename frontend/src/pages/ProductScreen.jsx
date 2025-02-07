@@ -1,19 +1,31 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { IoChevronBackOutline } from "react-icons/io5";
 import Rating from "../components/Rating";
 // import axios from "axios";
 // import { BASE_URL } from "../utils/constant";
-// import { useEffect, useState } from "react";
 import { useGetProductDetailsQuery } from "../slices/productsApiSlice";
+import Loader from "../components/Loader";
+import Message from "../components/Message";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../slices/cartSlice";
 
 const ProductScreen = () => {
   // const [product, setProduct] = useState({});
   const { id: productId } = useParams();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [quantity, setQuantity] = useState(1);
   const {
     data: product,
     isLoading,
     error,
   } = useGetProductDetailsQuery(productId);
+
+  const addToCartHandler = () => {
+    dispatch(addToCart({ ...product, quantity }));
+    navigate("/cart");
+  };
   // const product = products.find((item) => item._id === productId);
   // console.log(product);
 
@@ -39,9 +51,11 @@ const ProductScreen = () => {
       </Link>
 
       {isLoading ? (
-        <h2>Loading...</h2>
+        <Loader />
       ) : error ? (
-        <div>{error?.data?.message || error.error}</div>
+        <Message variant="danger">
+          {error?.data?.message || error.error}
+        </Message>
       ) : (
         <div className="grid md:grid-cols-3 gap-6 pt-5">
           {/* Product Image */}
@@ -89,16 +103,41 @@ const ProductScreen = () => {
                 {product.countInStock > 0 ? "In Stock" : "Out Of Stock"}
               </span>
             </div>
-            <button
-              className={`w-full py-2 mt-3 text-white font-semibold rounded-md ${
-                product.countInStock > 0
-                  ? "bg-blue-600 hover:bg-blue-700"
-                  : "bg-gray-400 cursor-not-allowed"
-              }`}
-              disabled={product.countInStock === 0}
-            >
-              Add To Cart
-            </button>
+
+            <div className="flex items-center justify-between gap-5">
+              {/* Quantity */}
+              {product.countInStock > 0 && (
+                <div className="w-1/3 px-2 mt-3 border rounded-lg">
+                  <div className="flex items-center justify-evenly">
+                    <span className="font-medium">Qty</span>
+                    <select
+                      className="p-2"
+                      value={quantity}
+                      onChange={(e) => setQuantity(Number(e.target.value))}
+                    >
+                      {[...Array(product.countInStock).keys()].map((x) => (
+                        <option key={x + 1} value={x + 1}>
+                          {x + 1}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+              )}
+
+              {/* Add To Cart Button */}
+              <button
+                onClick={addToCartHandler}
+                className={`py-2 mt-3 text-white font-semibold rounded-md ${
+                  product.countInStock > 0
+                    ? "w-2/3 bg-blue-600 hover:bg-blue-700"
+                    : "w-full bg-gray-400 cursor-not-allowed"
+                }`}
+                disabled={product.countInStock === 0}
+              >
+                Add To Cart
+              </button>
+            </div>
           </div>
         </div>
       )}
