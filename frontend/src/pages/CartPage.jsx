@@ -24,8 +24,8 @@ const CartPage = () => {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-4">Shopping Cart</h1>
-      <div className="flex flex-col md:flex-row gap-6 p-6">
+      <h1 className="text-2xl font-bold p-5 text-center">Shopping Cart</h1>
+      <div className="flex flex-col md:flex-row gap-6 p-5">
         <div className="md:w-2/3">
           {cartItems.length === 0 ? (
             <Message>
@@ -44,17 +44,21 @@ const CartPage = () => {
                   <img
                     src={item.image}
                     alt={item.name}
-                    className="w-16 h-16 object-cover rounded"
+                    className="w-18 h-16 md:w-[112px] md:h-[90px] object-cover rounded"
                   />
+
                   <div className="flex-1 ml-4">
                     <Link
                       to={`/product/${item._id}`}
-                      className="text-lg font-semibold"
+                      className="text-base md:text-lg font-semibold"
                     >
                       {item.name}
                     </Link>
-                    <p className="text-gray-600">₹ {item.price}</p>
+                    <p className="text-gray-600 text-sm md:text-base">
+                      ₹ {item.price}
+                    </p>
                   </div>
+
                   <select
                     className="border p-1 rounded"
                     value={item.quantity}
@@ -68,6 +72,7 @@ const CartPage = () => {
                       </option>
                     ))}
                   </select>
+
                   <button
                     className="ml-4 text-gray-800 bg-slate-200 hover:bg-slate-300 p-2 rounded-md"
                     onClick={() => removeFromCartHandler(item._id)}

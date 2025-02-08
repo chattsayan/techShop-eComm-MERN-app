@@ -38,11 +38,16 @@ const Header = () => {
           </li>
         </ul>
 
-        <img
-          onClick={() => setVisible(true)}
-          src={assets.menu_icon}
-          className="w-5 cursor-pointer sm:hidden"
-        />
+        <div className="relative">
+          <img
+            onClick={() => setVisible(true)}
+            src={assets.menu_icon}
+            className="w-5 cursor-pointer sm:hidden"
+          />
+          {cartItems.length > 0 && (
+            <p className="absolute right-[-6px] top-[-6px] w-3 text-center leading-4 bg-red-700 text-white aspect-square rounded-full sm:hidden"></p>
+          )}
+        </div>
       </div>
 
       {/* sidebar menu for small screens */}
@@ -53,19 +58,26 @@ const Header = () => {
       >
         <div className="flex flex-col text-gray-600">
           <div
+            className="flex items-center justify-start gap-1 p-3"
             onClick={() => setVisible(false)}
-            className="flex items-center gap-4 p-3 "
           >
             <IoChevronBack size={18} />
             <p className="cursor-pointer">Back</p>
           </div>
+
           <Link
             onClick={() => setVisible(false)}
-            className="py-2 pl-6 border"
+            className="py-2 pl-6 border flex items-center gap-3"
             to="/cart"
           >
             CART
+            {cartItems.length > 0 && (
+              <p className="w-4 text-center leading-4 bg-red-700 text-white aspect-square rounded-full text-[8px] font-semibold">
+                {cartItems.reduce((a, c) => a + c.quantity, 0)}
+              </p>
+            )}
           </Link>
+
           <Link
             onClick={() => setVisible(false)}
             className="py-2 pl-6 border"

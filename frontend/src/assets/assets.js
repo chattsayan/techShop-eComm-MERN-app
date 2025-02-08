@@ -10,7 +10,7 @@ import alexa from "./alexa.jpg";
 import camera from "./camera.jpg";
 import mouse from "./mouse.jpg";
 import sample from "./sample.jpg";
-import iphone from "./iphone.png";
+import phone from "./phone.png";
 import ps5 from "./ps5.jpg";
 
 export const assets = {
@@ -25,7 +25,7 @@ export const assets = {
   alexa,
   camera,
   mouse,
-  iphone,
+  phone,
   ps5,
   sample,
 };
