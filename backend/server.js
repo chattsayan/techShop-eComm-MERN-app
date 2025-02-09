@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import productRoutes from "./routes/productRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
+import cookieParser from "cookie-parser";
 dotenv.config();
 
 const port = process.env.PORT || 5000;
@@ -12,17 +13,17 @@ const app = express();
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: process.env.CORS_ORIGIN,
+    credentials: true,
   })
 );
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+// cookie-parser Middleware
+app.use(cookieParser()); // allows to parse cookie from request object
 
-// app.get("/", (req, res) => {
-//   res.send("API is running...");
-// });
-
+// Body Parser Middleware
 app.use("/api/products", productRoutes); // Middleware to parse JSON bodies
 app.use("/api/users", userRoutes); // To parse URL-encoded data
 
