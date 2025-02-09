@@ -3,6 +3,7 @@ import cors from "cors";
 import connectDB from "./config/database.js";
 import dotenv from "dotenv";
 import productRoutes from "./routes/productRoutes.js";
+import userRoutes from "./routes/userRoutes.js";
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 dotenv.config();
 
@@ -15,11 +16,15 @@ app.use(
   })
 );
 
-app.get("/", (req, res) => {
-  res.send("API is running...");
-});
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-app.use("/api/products", productRoutes);
+// app.get("/", (req, res) => {
+//   res.send("API is running...");
+// });
+
+app.use("/api/products", productRoutes); // Middleware to parse JSON bodies
+app.use("/api/users", userRoutes); // To parse URL-encoded data
 
 app.use(notFound);
 app.use(errorHandler);

@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import validator from "validator";
+import bcrypt from "bcrypt";
 
 const userSchema = new mongoose.Schema({
   name: { type: String, required: true },
@@ -30,6 +31,15 @@ const userSchema = new mongoose.Schema({
     default: false,
   },
 });
+
+userSchema.methods.validatePassword = async function (passwordInputByUser) {
+  const isPasswordValid = await bcrypt.compare(
+    passwordInputByUser,
+    this.password
+  );
+
+  return isPasswordValid;
+};
 
 const User = mongoose.model("User", userSchema);
 
