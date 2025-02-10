@@ -4,6 +4,7 @@ import connectDB from "./config/database.js";
 import dotenv from "dotenv";
 import productRoutes from "./routes/productRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
+import orderRoutes from "./routes/orderRoutes.js";
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 import cookieParser from "cookie-parser";
 dotenv.config();
@@ -26,6 +27,7 @@ app.use(cookieParser()); // allows to parse cookie from request object
 // Body Parser Middleware
 app.use("/api/products", productRoutes); // Middleware to parse JSON bodies
 app.use("/api/users", userRoutes); // To parse URL-encoded data
+app.use("/api/orders", orderRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
