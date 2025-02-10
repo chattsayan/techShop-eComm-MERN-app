@@ -9,9 +9,8 @@ import { clearCartItems } from "../slices/cartSlice";
 import { toast } from "react-toastify";
 
 const PlaceOrder = () => {
-  const cart = useSelector((store) => store.cart);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const cart = useSelector((store) => store.cart);
 
   const [createOrder, { isLoading, error }] = useCreateOrderMutation();
 
@@ -23,6 +22,7 @@ const PlaceOrder = () => {
     }
   }, [cart.paymentMethod, cart.shippingAddress.address, navigate]);
 
+  const dispatch = useDispatch();
   const placeOrderHandler = async () => {
     try {
       const res = await createOrder({
@@ -34,10 +34,12 @@ const PlaceOrder = () => {
         taxPrice: cart.taxPrice,
         totalPrice: cart.totalPrice,
       }).unwrap();
+
       dispatch(clearCartItems());
-      navigate(`/order/${res._id}`);
-    } catch (error) {
-      toast.error(error?.data?.message || "Failed to Place Order");
+      navigate(`/order/${res?.order?._id}`);
+      console.log("placed order", res);
+    } catch (err) {
+      toast.error(err?.data?.error || "Failed to Place Order");
     }
   };
 
@@ -53,8 +55,8 @@ const PlaceOrder = () => {
           <div className="border-b pb-4 mb-4">
             <h2 className="text-xl font-semibold">Shipping</h2>
             <p className="mt-2 text-gray-700">
-              <strong>Address:</strong> {cart.shippingAddress.address},{" "}
-              {cart.shippingAddress.city}, {cart.shippingAddress.postalCode},{" "}
+              <strong>Address:</strong> {cart.shippingAddress.address},
+              {cart.shippingAddress.city}, {cart.shippingAddress.postalCode},
               {cart.shippingAddress.country}
             </p>
           </div>
@@ -82,7 +84,7 @@ const PlaceOrder = () => {
                     <img
                       src={item.image}
                       alt={item.name}
-                      className="w-16 h-16 rounded-md"
+                      className="w-20 h-16 rounded-md"
                     />
                     <div className="flex-1">
                       <Link
@@ -112,26 +114,26 @@ const PlaceOrder = () => {
           <div className="space-y-3">
             <div className="flex justify-between">
               <span>Items</span>
-              <span>${cart.itemsPrice}</span>
+              <span>₹{cart.itemsPrice}</span>
             </div>
             <div className="flex justify-between">
               <span>Shipping</span>
-              <span>${cart.shippingPrice}</span>
+              <span>₹{cart.shippingPrice}</span>
             </div>
             <div className="flex justify-between">
               <span>Tax</span>
-              <span>${cart.taxPrice}</span>
+              <span>₹{cart.taxPrice}</span>
             </div>
             <div className="flex justify-between font-bold border-t pt-2">
               <span>Total</span>
-              <span>${cart.totalPrice}</span>
+              <span>₹{cart.totalPrice}</span>
             </div>
           </div>
 
           <div>
             {error && (
               <Message variant="danger">
-                {error?.data.message || "An error occurred"}
+                {error?.data?.error || "An error occurred"}
               </Message>
             )}
           </div>

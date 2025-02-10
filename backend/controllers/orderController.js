@@ -20,33 +20,30 @@ const addOrderItems = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("No order items provided.");
   } else {
-    try {
-      // Create new order
-      const order = new Order({
-        orderItems: orderItems.map((item) => ({
-          ...item,
-          product: item._id,
-          _id: undefined,
-        })),
-        user: req.user._id,
-        shippingAddress,
-        paymentMethod,
-        itemsPrice,
-        taxPrice,
-        shippingPrice,
-        totalPrice,
-      });
+    // Create new order
+    const order = new Order({
+      orderItems: orderItems.map((item) => ({
+        ...item,
+        product: item._id,
+        _id: undefined,
+      })),
+      shippingAddress,
+      paymentMethod,
+      itemsPrice,
+      taxPrice,
+      shippingPrice,
+      totalPrice,
+      user: req.user._id,
+    });
 
-      const createdOrder = await order.save();
+    const createdOrder = await order.save();
 
-      res.status(201).json({
-        message: "Order created successfully",
-        order: createdOrder,
-      });
-    } catch (error) {
-      res.status(500);
-      throw new Error("Failed to create order. Please try again.");
-    }
+    console.log("Saved Order:", createdOrder);
+
+    res.status(201).json({
+      message: "Order created successfully",
+      order: createdOrder,
+    });
   }
 });
 
