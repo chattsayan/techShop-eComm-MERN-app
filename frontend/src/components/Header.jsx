@@ -1,13 +1,34 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { assets } from "../assets/assets";
 import { PiShoppingCartSimpleBold, PiUserBold } from "react-icons/pi";
 import { IoChevronBack } from "react-icons/io5";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { AiOutlineCaretDown } from "react-icons/ai";
+import { TbLogout } from "react-icons/tb";
+import { useLogoutMutation } from "../slices/usersApiSlice";
+import { logout } from "../slices/authSlice";
 
 const Header = () => {
   const [visible, setVisible] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const { cartItems } = useSelector((store) => store.cart);
+  const { userInfo } = useSelector((store) => store.auth);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [logoutApiCall] = useLogoutMutation();
+
+  const logoutHandler = async () => {
+    try {
+      await logoutApiCall().unwrap();
+      dispatch(logout());
+      navigate("/login");
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
     <div className="flex items-center justify-between py-5 px-5 font-medium bg-slate-200 shadow-md">
@@ -33,8 +54,53 @@ const Header = () => {
             <Link to="/cart">Cart</Link>
           </li>
           <li className="flex items-center gap-1">
-            <PiUserBold size={24} />
-            <Link to="/login">Sign In</Link>
+            {userInfo ? (
+              <>
+                <div className="relative">
+                  <button
+                    onClick={() => setIsOpen(!isOpen)}
+                    className="px-4 py-2 text-gray-600 rounded-md focus:outline-none flex items-center justify-center gap-2 hover:text-gray-800"
+                  >
+                    {userInfo.name}
+                    <span>
+                      <AiOutlineCaretDown />
+                    </span>
+                  </button>
+                </div>
+
+                {isOpen && (
+                  <div className="absolute right-10 top-12 mt-2 w-40 bg-white border border-gray-200 rounded-md shadow-lg">
+                    <Link
+                      to="/profile"
+                      className="flex px-4 py-2 text-gray-700 hover:bg-blue-100 items-center gap-2 transition-colors duration-300"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      <span>
+                        <PiUserBold size={19} />
+                      </span>
+                      View Profile
+                    </Link>
+                    <Link
+                      onClick={() => {
+                        logoutHandler();
+                        setIsOpen(false);
+                      }}
+                      className="flex w-full text-left px-4 py-2 text-gray-700 hover:bg-blue-100 items-center gap-2 transition-colors duration-300"
+                    >
+                      <span>
+                        <TbLogout size={19} />
+                      </span>
+                      Logout
+                    </Link>
+                  </div>
+                )}
+              </>
+            ) : (
+              <>
+                <PiUserBold size={24} />
+                <Link to="/login">Sign In</Link>
+              </>
+            )}
           </li>
         </ul>
 
