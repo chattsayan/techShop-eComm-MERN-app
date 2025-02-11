@@ -37,7 +37,6 @@ const PlaceOrder = () => {
 
       dispatch(clearCartItems());
       navigate(`/order/${res?.order?._id}`);
-      console.log("placed order", res);
     } catch (err) {
       toast.error(err?.data?.error || "Failed to Place Order");
     }
