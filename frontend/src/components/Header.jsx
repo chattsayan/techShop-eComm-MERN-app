@@ -1,10 +1,15 @@
 import { Link, useNavigate } from "react-router-dom";
 import { assets } from "../assets/assets";
-import { PiShoppingCartSimpleBold, PiUserBold } from "react-icons/pi";
+import {
+  PiShoppingCartSimpleBold,
+  PiUserBold,
+  PiUsersBold,
+} from "react-icons/pi";
 import { IoChevronBack } from "react-icons/io5";
+import { BsBoxSeam } from "react-icons/bs";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { AiOutlineCaretDown } from "react-icons/ai";
+import { AiOutlineCaretDown, AiOutlineProduct } from "react-icons/ai";
 import { TbLogout } from "react-icons/tb";
 import { useLogoutMutation } from "../slices/usersApiSlice";
 import { logout } from "../slices/authSlice";
@@ -80,6 +85,54 @@ const Header = () => {
                       </span>
                       View Profile
                     </Link>
+
+                    {/* ADMIN USER - Code starts here */}
+                    {userInfo && userInfo.isAdmin && (
+                      <>
+                        <hr />
+                        <Link
+                          to="/admin/productlist"
+                          onClick={() => {
+                            setIsOpen(false);
+                          }}
+                          className="flex w-full text-left px-4 py-2 text-gray-700 hover:bg-blue-100 items-center gap-2 transition-colors duration-300"
+                        >
+                          <span>
+                            <AiOutlineProduct size={19} />
+                          </span>
+                          Products
+                        </Link>
+
+                        <Link
+                          to="/admin/orderlist"
+                          onClick={() => {
+                            setIsOpen(false);
+                          }}
+                          className="flex w-full text-left px-4 py-2 text-gray-700 hover:bg-blue-100 items-center gap-2 transition-colors duration-300"
+                        >
+                          <span>
+                            <BsBoxSeam size={19} />
+                          </span>
+                          Orders
+                        </Link>
+
+                        <Link
+                          to="/admin/userlist"
+                          onClick={() => {
+                            setIsOpen(false);
+                          }}
+                          className="flex w-full text-left px-4 py-2 text-gray-700 hover:bg-blue-100 items-center gap-2 transition-colors duration-300"
+                        >
+                          <span>
+                            <PiUsersBold size={19} />
+                          </span>
+                          Users
+                        </Link>
+                        <hr />
+                      </>
+                    )}
+                    {/* ADMIN USER - Code ends here */}
+
                     <Link
                       onClick={() => {
                         logoutHandler();
@@ -102,6 +155,8 @@ const Header = () => {
               </>
             )}
           </li>
+
+          {/* <li></li> */}
         </ul>
 
         <div className="relative">

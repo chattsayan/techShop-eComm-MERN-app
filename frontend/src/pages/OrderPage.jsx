@@ -3,6 +3,7 @@ import {
   useGetOrderDetailsQuery,
   useGetPayPalClientIdQuery,
   usePayOrderMutation,
+  useDeliverOrderMutation,
 } from "../slices/ordersApiSlice";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
@@ -23,6 +24,9 @@ const OrderPage = () => {
   } = useGetOrderDetailsQuery(orderId);
 
   const [payOrder, { isLoading: loadingPay }] = usePayOrderMutation();
+
+  const [deliverOrder, { isLoading: loadingDeliver }] =
+    useDeliverOrderMutation();
 
   const [{ isPending }, paypalDispatch] = usePayPalScriptReducer();
 
@@ -91,6 +95,16 @@ const OrderPage = () => {
       .then((orderId) => {
         return orderId;
       });
+  };
+
+  const deliverOrderHandler = async () => {
+    try {
+      await deliverOrder(orderId);
+      refetch();
+      toast.success("Order Delivered!");
+    } catch (err) {
+      toast.error(err?.data?.error || err.error);
+    }
   };
 
   return isLoading ? (
@@ -228,6 +242,20 @@ const OrderPage = () => {
               )}
             </div>
           )}
+
+          {loadingDeliver && <Loader />}
+
+          {userInfo &&
+            userInfo.isAdmin &&
+            order.isPaid &&
+            !order.isDelivered && (
+              <button
+                onClick={deliverOrderHandler}
+                className="w-full mt-[10px] mb-[10px] border py-2 px-4 rounded-md bg-blue-400"
+              >
+                Mark as Delivered
+              </button>
+            )}
         </div>
       </div>
     </>
