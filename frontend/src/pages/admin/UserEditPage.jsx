@@ -49,7 +49,7 @@ const UserEditPage = () => {
   return (
     <>
       <Link to="/admin/userlist">
-        <button className="flex items-center gap-1 border border-slate-100 pr-2 py-2 rounded bg-slate-100 hover:bg-slate-200">
+        <button className="flex items-center gap-1 border border-slate-100 pr-2 py-2 rounded bg-slate-100 hover:bg-slate-200 mt-3">
           <IoChevronBackOutline size={20} /> <span>Back</span>
         </button>
       </Link>

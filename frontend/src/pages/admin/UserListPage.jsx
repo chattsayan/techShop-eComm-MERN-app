@@ -38,72 +38,81 @@ const UserListPage = () => {
       ) : error ? (
         <Message variant="danger">{error?.data?.error || error.error}</Message>
       ) : (
-        <table className="w-full border-collapse border border-gray-300 text-sm my-2">
-          <thead className="bg-gray-100">
-            <tr>
-              <th className="border border-gray-300 px-4 py-2 text-left">ID</th>
-              <th className="border border-gray-300 px-4 py-2 text-left">
-                NAME
-              </th>
-              <th className="border border-gray-300 px-4 py-2 text-left">
-                EMAIL
-              </th>
-              <th className="border border-gray-300 px-4 py-2 text-left">
-                ADMIN
-              </th>
-              <th className="border border-gray-300 px-4 py-2 text-left"></th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {users.map((user) => (
-              <tr
-                key={user._id}
-                className="odd:bg-white even:bg-gray-50 hover:bg-gray-200"
-              >
-                <td className="border border-gray-300 px-4 py-2">{user._id}</td>
-                <td className="border border-gray-300 px-4 py-2">
-                  {user.name}
-                </td>
-                <td className="border border-gray-300 px-4 py-2">
-                  <a
-                    href={`mailto:${user.email}`}
-                    className="text-blue-600 hover:underline"
-                  >
-                    {user.email}
-                  </a>
-                </td>
-                <td className="border border-gray-300 px-4 py-2">
-                  {user.isAdmin ? (
-                    <FaCheck className="text-green-500" />
-                  ) : (
-                    <FaTimes className="text-red-500" />
-                  )}
-                </td>
-
-                <td className="border border-gray-300 px-4 py-2">
-                  <div className="flex items-center justify-center gap-3">
-                    {/* EDIT PRODUCT */}
-                    <Link to={`/admin/user/${user._id}/edit`} title="Edit User">
-                      <button className="p-2 rounded-md hover:bg-gray-300 transition-colors duration-200">
-                        <FaEdit />
-                      </button>
-                    </Link>
-
-                    {/* DELETE PRODUCT */}
-                    <button
-                      title="Delete User"
-                      onClick={() => deleteHandler(user._id)}
-                      className="border p-2 rounded-md bg-gray-300 hover:bg-red-600 hover:text-white transition-colors duration-200"
-                    >
-                      <FaTrash />
-                    </button>
-                  </div>
-                </td>
+        <div className="overflow-x-auto">
+          <table className="w-full border-collapse border border-gray-300 text-sm my-2">
+            <thead className="bg-gray-100">
+              <tr>
+                <th className="border border-gray-300 px-4 py-2 text-left">
+                  ID
+                </th>
+                <th className="border border-gray-300 px-4 py-2 text-left">
+                  NAME
+                </th>
+                <th className="border border-gray-300 px-4 py-2 text-left">
+                  EMAIL
+                </th>
+                <th className="border border-gray-300 px-4 py-2 text-left">
+                  ADMIN
+                </th>
+                <th className="border border-gray-300 px-4 py-2 text-left"></th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+
+            <tbody>
+              {users.map((user) => (
+                <tr
+                  key={user._id}
+                  className="odd:bg-white even:bg-gray-50 hover:bg-gray-200"
+                >
+                  <td className="border border-gray-300 px-4 py-2 whitespace-nowrap">
+                    {user._id}
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2 whitespace-nowrap">
+                    {user.name}
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2 whitespace-nowrap">
+                    <a
+                      href={`mailto:${user.email}`}
+                      className="text-blue-600 hover:underline"
+                    >
+                      {user.email}
+                    </a>
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2 whitespace-nowrap">
+                    {user.isAdmin ? (
+                      <FaCheck className="text-green-500" />
+                    ) : (
+                      <FaTimes className="text-red-500" />
+                    )}
+                  </td>
+
+                  <td className="border border-gray-300 px-4 py-2 whitespace-nowrap">
+                    <div className="flex items-center justify-center gap-3">
+                      {/* EDIT PRODUCT */}
+                      <Link
+                        to={`/admin/user/${user._id}/edit`}
+                        title="Edit User"
+                      >
+                        <button className="p-2 rounded-md hover:bg-gray-300 transition-colors duration-200">
+                          <FaEdit />
+                        </button>
+                      </Link>
+
+                      {/* DELETE PRODUCT */}
+                      <button
+                        title="Delete User"
+                        onClick={() => deleteHandler(user._id)}
+                        className="border p-2 rounded-md bg-gray-300 hover:bg-red-600 hover:text-white transition-colors duration-200"
+                      >
+                        <FaTrash />
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
     </div>
   );

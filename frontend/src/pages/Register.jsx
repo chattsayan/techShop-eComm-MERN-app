@@ -144,7 +144,7 @@ const Register = () => {
 
           <div className="py-3">
             <p className="text-sm font-semibold text-gray-500">
-              Already have an account?
+              Already have an account?{" "}
               <Link
                 to={redirect ? `/login?redirect=${redirect}` : "/login"}
                 className="underline"

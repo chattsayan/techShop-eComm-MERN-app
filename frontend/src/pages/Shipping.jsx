@@ -38,13 +38,14 @@ const Shipping = () => {
       <CheckoutSteps step1 step2 />
 
       <div className="flex justify-center items-center h-full select-none">
-        <div className="border p-5 rounded-xl w-[600px] max-h-screen bg-slate-200 shadow-lg">
+        <div className="border p-5 rounded-xl w-full max-w-lg bg-slate-200 shadow-lg">
           <form
             onSubmit={(e) => e.preventDefault()}
-            className="w-full flex flex-col gap-2"
+            className="w-full flex flex-col gap-4"
           >
+            {/* Address */}
             <label
-              htmlFor="name"
+              htmlFor="address"
               className="font-semibold text-xs text-gray-500"
             >
               Address
@@ -57,6 +58,7 @@ const Shipping = () => {
               onChange={(e) => setAddress(e.target.value)}
             />
 
+            {/* City */}
             <label
               htmlFor="city"
               className="font-semibold text-xs text-gray-500"
@@ -71,8 +73,9 @@ const Shipping = () => {
               onChange={(e) => setCity(e.target.value)}
             />
 
+            {/* Postal Code */}
             <label
-              htmlFor="city"
+              htmlFor="postalCode"
               className="font-semibold text-xs text-gray-500"
             >
               Postal Code
@@ -85,8 +88,9 @@ const Shipping = () => {
               onChange={(e) => setPostalCode(e.target.value)}
             />
 
+            {/* Country */}
             <label
-              htmlFor="city"
+              htmlFor="country"
               className="font-semibold text-xs text-gray-500"
             >
               Country
@@ -99,19 +103,20 @@ const Shipping = () => {
               onChange={(e) => setCountry(e.target.value)}
             />
 
+            {/* Buttons */}
             <div className="flex gap-3">
               <button
                 onClick={submitHandler}
-                type="submit"
-                className="py-1 px-8 bg-blue-500 hover:bg-blue-800 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg cursor-pointer select-none"
+                type="button"
+                className="py-2 px-6 bg-blue-500 hover:bg-blue-800 text-white w-full transition ease-in duration-200 text-base font-semibold shadow-md focus:outline-none rounded-lg"
               >
                 Submit
               </button>
 
               <button
                 onClick={resetProfile}
-                type="submit"
-                className="py-1 px-8 bg-blue-500 hover:bg-blue-800 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg cursor-pointer select-none"
+                type="button"
+                className="py-2 px-6 bg-gray-500 hover:bg-gray-700 text-white w-full transition ease-in duration-200 text-base font-semibold shadow-md focus:outline-none rounded-lg"
               >
                 Reset
               </button>

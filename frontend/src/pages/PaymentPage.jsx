@@ -30,7 +30,7 @@ const PaymentPage = () => {
       <CheckoutSteps step1 step2 step3 />
 
       <div className="flex justify-center items-center h-full">
-        <form onSubmit={submitHandler}>
+        <form onSubmit={submitHandler} className="p-6">
           <fieldset>
             <legend className="text-lg font-medium text-gray-700">
               Select Method
@@ -54,7 +54,7 @@ const PaymentPage = () => {
 
           <button
             type="submit"
-            className="w-[100px] bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300 mt-3"
+            className="w-[100px] bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300 mt-4"
           >
             Continue
           </button>

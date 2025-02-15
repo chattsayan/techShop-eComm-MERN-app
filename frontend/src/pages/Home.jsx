@@ -2,9 +2,6 @@ import { Link, useParams } from "react-router-dom";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 import Product from "../components/Product";
-// import { useEffect, useState } from "react";
-// import axios from "axios";
-// import { BASE_URL } from "../utils/constant";
 import { useGetProductsQuery } from "../slices/productsApiSlice";
 import Paginate from "../components/Paginate";
 import { IoChevronBackOutline } from "react-icons/io5";
@@ -16,20 +13,6 @@ const Home = () => {
     keyword,
     pageNumber,
   });
-  // const [products, setProducts] = useState([]);
-
-  // const fetchProducts = async () => {
-  //   try {
-  //     const res = await axios.get(`${BASE_URL}/api/products`);
-  //     setProducts(res?.data);
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   fetchProducts();
-  // }, []);
 
   return (
     <div>

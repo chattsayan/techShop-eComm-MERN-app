@@ -64,7 +64,7 @@ const ProductListPage = () => {
       ) : error ? (
         <Message variant="danger">{error}</Message>
       ) : (
-        <>
+        <div className="overflow-x-auto">
           <table className="w-full border-collapse border border-gray-300 text-sm my-2">
             <thead className="bg-gray-100">
               <tr>
@@ -93,22 +93,22 @@ const ProductListPage = () => {
                   key={product._id}
                   className="odd:bg-white even:bg-gray-50 hover:bg-gray-200"
                 >
-                  <td className="border border-gray-300 px-4 py-2">
+                  <td className="border border-gray-300 px-4 py-2 whitespace-nowrap">
                     {product._id}
                   </td>
-                  <td className="border border-gray-300 px-4 py-2">
+                  <td className="border border-gray-300 px-4 py-2 whitespace-nowrap">
                     {product.name}
                   </td>
-                  <td className="border border-gray-300 px-4 py-2">
+                  <td className="border border-gray-300 px-4 py-2 whitespace-nowrap">
                     ${product.price}
                   </td>
-                  <td className="border border-gray-300 px-4 py-2">
+                  <td className="border border-gray-300 px-4 py-2 whitespace-nowrap">
                     {product.category}
                   </td>
-                  <td className="border border-gray-300 px-4 py-2">
+                  <td className="border border-gray-300 px-4 py-2 whitespace-nowrap">
                     {product.brand}
                   </td>
-                  <td className="border border-gray-300 px-4 py-2 ">
+                  <td className="border border-gray-300 px-4 py-2 whitespace-nowrap">
                     <div className="flex items-center justify-center gap-3">
                       {/* EDIT PRODUCT */}
                       <Link to={`/admin/product/${product._id}/edit`}>
@@ -120,7 +120,7 @@ const ProductListPage = () => {
                       {/* DELETE PRODUCT */}
                       <button
                         onClick={() => deleteHandler(product._id)}
-                        className="border p-2 rounded-md bg-gray-300 hover:bg-gray-400 transition-colors duration-200"
+                        className="border p-2 rounded-md bg-gray-300 hover:bg-red-600 hover:text-white transition-colors duration-200"
                       >
                         <FaTrash />
                       </button>
@@ -131,7 +131,7 @@ const ProductListPage = () => {
             </tbody>
           </table>
           <Paginate pages={data.pages} page={data.page} isAdmin={true} />
-        </>
+        </div>
       )}
     </div>
   );

@@ -8,7 +8,7 @@ function App() {
   return (
     <>
       <Header />
-      <main className="py-3 px-5">
+      <main className="py-3 px-5 mt-16">
         <Outlet />
       </main>
       <Footer />

@@ -123,7 +123,7 @@ const OrderPage = () => {
             <h2 className="text-2xl font-semibold mb-4">Shipping</h2>
             <p className="mt-2 text-gray-700">
               <strong>Name: </strong>
-              {order.user.name}
+              {order?.user?.name}
             </p>
             <p className="mt-2 text-gray-700">
               <strong>email: </strong>

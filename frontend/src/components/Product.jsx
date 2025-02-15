@@ -13,14 +13,21 @@ const Product = ({ product }) => {
       </Link>
 
       <div className="py-5">
-        <Link to={`/product/${product._id}`}>{product.name}</Link>
+        <Link
+          to={`/product/${product._id}`}
+          className="block font-semibold text-lg text-gray-800 hover:text-gray-600"
+        >
+          {product.name}
+        </Link>
       </div>
 
       <div>
         <Rating value={product.rating} text={`${product.numReviews} reviews`} />
       </div>
 
-      <h3>₹ {product.price}</h3>
+      <h3 className="mt-3 font-bold text-xl text-green-600">
+        ₹ {product.price}
+      </h3>
     </div>
   );
 };

@@ -1,8 +1,6 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { IoChevronBackOutline } from "react-icons/io5";
 import Rating from "../components/Rating";
-// import axios from "axios";
-// import { BASE_URL } from "../utils/constant";
 import {
   useCreateReviewMutation,
   useGetProductDetailsQuery,
@@ -57,21 +55,6 @@ const ProductScreen = () => {
       toast.error(err?.data?.error || err.error);
     }
   };
-  // const product = products.find((item) => item._id === productId);
-  // console.log(product);
-
-  // const fetchProduct = async () => {
-  //   try {
-  //     const res = await axios.get(`${BASE_URL}/api/products/${productId}`);
-  //     setProduct(res?.data);
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   fetchProduct();
-  // }, [productId]);
 
   return (
     <>

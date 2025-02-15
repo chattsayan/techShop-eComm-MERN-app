@@ -103,8 +103,8 @@ const Login = () => {
           </form>
 
           <div className="py-3">
-            <p className="text-sm font-semibold text-gray-500">
-              New Customer?
+            <p className="text-sm font-semibold text-gray-500 mt-3">
+              New Customer?{" "}
               <Link
                 to={redirect ? `/register?redirect=${redirect}` : "/register"}
                 className="underline"
