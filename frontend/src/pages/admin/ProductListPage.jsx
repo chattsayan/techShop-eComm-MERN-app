@@ -1,5 +1,5 @@
 import { FaEdit, FaPlus, FaTrash } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import {
   useGetProductsQuery,
   useCreateProductMutation,
@@ -8,9 +8,13 @@ import {
 import Loader from "../../components/Loader";
 import Message from "../../components/Message";
 import { toast } from "react-toastify";
+import Paginate from "../../components/Paginate";
 
 const ProductListPage = () => {
-  const { data: products, isLoading, error, refetch } = useGetProductsQuery();
+  const { pageNumber } = useParams();
+  const { data, isLoading, error, refetch } = useGetProductsQuery({
+    pageNumber,
+  });
 
   const [createProduct, { isLoading: loadingCreate }] =
     useCreateProductMutation();
@@ -60,69 +64,74 @@ const ProductListPage = () => {
       ) : error ? (
         <Message variant="danger">{error}</Message>
       ) : (
-        <table className="w-full border-collapse border border-gray-300 text-sm my-2">
-          <thead className="bg-gray-100">
-            <tr>
-              <th className="border border-gray-300 px-4 py-2 text-left">ID</th>
-              <th className="border border-gray-300 px-4 py-2 text-left">
-                NAME
-              </th>
-              <th className="border border-gray-300 px-4 py-2 text-left">
-                PRICE
-              </th>
-              <th className="border border-gray-300 px-4 py-2 text-left">
-                CATEGORY
-              </th>
-              <th className="border border-gray-300 px-4 py-2 text-left">
-                BRAND
-              </th>
-              <th className="border border-gray-300 px-4 py-2 text-left"></th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {products.map((product) => (
-              <tr
-                key={product._id}
-                className="odd:bg-white even:bg-gray-50 hover:bg-gray-200"
-              >
-                <td className="border border-gray-300 px-4 py-2">
-                  {product._id}
-                </td>
-                <td className="border border-gray-300 px-4 py-2">
-                  {product.name}
-                </td>
-                <td className="border border-gray-300 px-4 py-2">
-                  ${product.price}
-                </td>
-                <td className="border border-gray-300 px-4 py-2">
-                  {product.category}
-                </td>
-                <td className="border border-gray-300 px-4 py-2">
-                  {product.brand}
-                </td>
-                <td className="border border-gray-300 px-4 py-2 ">
-                  <div className="flex items-center justify-center gap-3">
-                    {/* EDIT PRODUCT */}
-                    <Link to={`/admin/product/${product._id}/edit`}>
-                      <button className="p-2 rounded-md hover:bg-gray-300 transition-colors duration-200">
-                        <FaEdit />
-                      </button>
-                    </Link>
-
-                    {/* DELETE PRODUCT */}
-                    <button
-                      onClick={() => deleteHandler(product._id)}
-                      className="border p-2 rounded-md bg-gray-300 hover:bg-gray-400 transition-colors duration-200"
-                    >
-                      <FaTrash />
-                    </button>
-                  </div>
-                </td>
+        <>
+          <table className="w-full border-collapse border border-gray-300 text-sm my-2">
+            <thead className="bg-gray-100">
+              <tr>
+                <th className="border border-gray-300 px-4 py-2 text-left">
+                  ID
+                </th>
+                <th className="border border-gray-300 px-4 py-2 text-left">
+                  NAME
+                </th>
+                <th className="border border-gray-300 px-4 py-2 text-left">
+                  PRICE
+                </th>
+                <th className="border border-gray-300 px-4 py-2 text-left">
+                  CATEGORY
+                </th>
+                <th className="border border-gray-300 px-4 py-2 text-left">
+                  BRAND
+                </th>
+                <th className="border border-gray-300 px-4 py-2 text-left"></th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+
+            <tbody>
+              {data?.products.map((product) => (
+                <tr
+                  key={product._id}
+                  className="odd:bg-white even:bg-gray-50 hover:bg-gray-200"
+                >
+                  <td className="border border-gray-300 px-4 py-2">
+                    {product._id}
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2">
+                    {product.name}
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2">
+                    ${product.price}
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2">
+                    {product.category}
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2">
+                    {product.brand}
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2 ">
+                    <div className="flex items-center justify-center gap-3">
+                      {/* EDIT PRODUCT */}
+                      <Link to={`/admin/product/${product._id}/edit`}>
+                        <button className="p-2 rounded-md hover:bg-gray-300 transition-colors duration-200">
+                          <FaEdit />
+                        </button>
+                      </Link>
+
+                      {/* DELETE PRODUCT */}
+                      <button
+                        onClick={() => deleteHandler(product._id)}
+                        className="border p-2 rounded-md bg-gray-300 hover:bg-gray-400 transition-colors duration-200"
+                      >
+                        <FaTrash />
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <Paginate pages={data.pages} page={data.page} isAdmin={true} />
+        </>
       )}
     </div>
   );

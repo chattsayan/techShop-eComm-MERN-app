@@ -13,6 +13,7 @@ import { AiOutlineCaretDown, AiOutlineProduct } from "react-icons/ai";
 import { TbLogout } from "react-icons/tb";
 import { useLogoutMutation } from "../slices/usersApiSlice";
 import { logout } from "../slices/authSlice";
+import SearchBar from "./SearchBar";
 
 const Header = () => {
   const [visible, setVisible] = useState(false);
@@ -47,6 +48,12 @@ const Header = () => {
 
       <div className="flex items-center gap-6">
         <ul className="hidden sm:flex gap-5 text-sm text-gray-700">
+          <li className="flex items-center gap-1">
+            <div>
+              <SearchBar />
+            </div>
+          </li>
+
           <li className="flex items-center gap-1">
             <div className="relative">
               <PiShoppingCartSimpleBold size={24} />
