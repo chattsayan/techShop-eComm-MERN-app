@@ -61,18 +61,23 @@ const updateProduct = asyncHandler(async (req, res) => {
   const { name, price, description, image, brand, category, countInStock } =
     req.body;
 
+  console.log("Received Image URL:", image); // Debugging line
+
   const product = await Product.findById(req.params.id);
 
   if (product) {
     product.name = name;
     product.price = price;
     product.description = description;
-    product.image = image;
+    product.image = image.startsWith("/uploads")
+      ? `${process.env.BASE_URL}${image}`
+      : image;
     product.brand = brand;
     product.category = category;
     product.countInStock = countInStock;
 
     const updatedProduct = await product.save();
+    // console.log("Updated Product Data:", updatedProduct); // Debugging line
     res.status(200).json(updatedProduct);
   } else {
     res.status(404);

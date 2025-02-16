@@ -37,18 +37,6 @@ const ProductEditPage = () => {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (product) {
-      setName(product.name);
-      setPrice(product.price);
-      setImage(product.image);
-      setBrand(product.brand);
-      setCategory(product.category);
-      setCountInStock(product.countInStock);
-      setDescription(product.description);
-    }
-  }, [product]);
-
   const submitHandler = async (e) => {
     e.preventDefault();
     // try {
@@ -65,6 +53,8 @@ const ProductEditPage = () => {
 
     try {
       const result = await updateProduct(updatedProduct).unwrap();
+      console.log(result);
+
       toast.success("Product updated successfully!");
       navigate("/admin/productlist");
     } catch (err) {
@@ -77,6 +67,18 @@ const ProductEditPage = () => {
     // }
   };
 
+  useEffect(() => {
+    if (product) {
+      setName(product.name);
+      setPrice(product.price);
+      setImage(product.image);
+      setBrand(product.brand);
+      setCategory(product.category);
+      setCountInStock(product.countInStock);
+      setDescription(product.description);
+    }
+  }, [product]);
+
   const uploadFileHandler = async (e) => {
     const formData = new FormData();
     formData.append("image", e.target.files[0]);
@@ -85,6 +87,7 @@ const ProductEditPage = () => {
     try {
       const res = await uploadProductImage(formData).unwrap();
       // console.log("Upload Response:", res);
+      // console.log("Uploaded Image URL:", res?.image); // Check image URL
       toast.success(res?.message);
       setImage(res?.image);
     } catch (err) {
@@ -159,12 +162,13 @@ const ProductEditPage = () => {
                 className="mt-1 block w-full rounded-md border border-gray-300 p-2 shadow-sm focus:border-blue-500 focus:ring-blue-500"
               />
               {/* File Upload Input */}
-              {loadingUpload && <Loader />}
+
               <input
                 type="file"
                 onChange={uploadFileHandler}
                 className="mt-2 block w-full text-sm text-gray-900 border border-gray-300 rounded-md cursor-pointer bg-gray-50 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
               />
+              {loadingUpload && <Loader />}
             </div>
 
             <div className="my-2">
@@ -194,9 +198,7 @@ const ProductEditPage = () => {
                 type="number"
                 placeholder="Enter Count In Stock"
                 value={countInStock}
-                onChange={(e) =>
-                  setCountInStock(parseFloat(e.target.value) || 0)
-                }
+                onChange={(e) => setCountInStock(parseFloat(e.target.value))}
                 className="mt-1 block w-full rounded-md border border-gray-300 p-2 shadow-sm focus:border-blue-500 focus:ring-blue-500"
               />
             </div>
@@ -233,7 +235,10 @@ const ProductEditPage = () => {
               />
             </div>
 
-            <button className="border py-[5px] px-[13px] rounded-md bg-blue-500 font-semibold text-white">
+            <button
+              type="submit"
+              className="border py-[5px] px-[13px] rounded-md bg-blue-500 font-semibold text-white"
+            >
               Submit
             </button>
           </form>
