@@ -34,7 +34,7 @@ const upload = multer({
 });
 
 router.post("/", upload.single("image"), (req, res) => {
-  console.log("File received:", req.file);
+  // console.log("File received:", req.file);
 
   if (!req.file) {
     return res.status(400).json({ message: "File upload failed" });

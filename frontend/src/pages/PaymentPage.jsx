@@ -26,7 +26,9 @@ const PaymentPage = () => {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold p-5 text-center">Payment Method</h1>
+      <h1 className="text-3xl font-bold mb-4 text-center text-gray-600 p-5">
+        Payment Method
+      </h1>
       <CheckoutSteps step1 step2 step3 />
 
       <div className="flex justify-center items-center h-full">

@@ -50,7 +50,12 @@ const Header = () => {
         <SearchBar />
         <div className="relative">
           <Link to="/cart" className="flex items-center gap-1">
-            <PiShoppingCartSimpleBold size={22} />
+            {/* <PiShoppingCartSimpleBold size={22} /> */}
+            <img
+              src="https://www.svgrepo.com/show/525740/cart-large.svg"
+              height={30}
+              width={30}
+            />
             {cartItems.length > 0 && (
               <p className="absolute right-[-5px] top-[-5px] w-4 text-center leading-4 bg-red-700 text-white aspect-square rounded-full text-[10px] font-semibold">
                 {cartItems.reduce((a, c) => a + c.quantity, 0)}
@@ -129,7 +134,11 @@ const Header = () => {
           </div>
         ) : (
           <Link to="/login" className="flex items-center gap-1">
-            <PiUserBold size={22} />
+            <img
+              src="https://www.svgrepo.com/show/527952/user-hand-up.svg"
+              height={26}
+              width={26}
+            />
             Sign In
           </Link>
         )}

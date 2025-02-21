@@ -57,7 +57,7 @@ const ProductScreen = () => {
   };
 
   return (
-    <>
+    <div className="pt-4">
       <Link to="/">
         <button className="flex items-center gap-1 border border-slate-100 pr-2 py-2 rounded bg-slate-100 hover:bg-slate-200">
           <IoChevronBackOutline size={20} /> <span>Back</span>
@@ -88,12 +88,12 @@ const ProductScreen = () => {
             <div className="md:col-span-1 bg-white p-4 shadow-md rounded-lg">
               <h3 className="text-2xl font-semibold mb-4">{product.name}</h3>
               <hr />
-              <p className="text-lg my-4">
+              <div className="text-lg my-4">
                 <Rating
                   value={product.rating}
                   text={`${product.numReviews} reviews`}
                 />
-              </p>
+              </div>
               <hr />
               <p className="text-xl font-bold text-gray-800 my-4">
                 Price: ₹{product.price}
@@ -250,7 +250,7 @@ const ProductScreen = () => {
           </div>
         </>
       )}
-    </>
+    </div>
   );
 };
 

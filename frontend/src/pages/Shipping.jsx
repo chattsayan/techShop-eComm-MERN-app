@@ -33,7 +33,9 @@ const Shipping = () => {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold p-5 text-center">Shipping Address</h1>
+      <h1 className="text-3xl font-bold mb-4 text-center text-gray-600 p-5">
+        Shipping Address
+      </h1>
 
       <CheckoutSteps step1 step2 />
 

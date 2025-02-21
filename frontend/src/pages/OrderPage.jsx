@@ -14,7 +14,7 @@ import { toast } from "react-toastify";
 
 const OrderPage = () => {
   const { id: orderId } = useParams();
-  console.log(orderId);
+  // console.log(orderId);
 
   const {
     data: order,

@@ -42,7 +42,7 @@ const ProductCarousel = () => {
 
                 {/* Right - Description */}
                 <div className="mx-6">
-                  <h2 className="text-3xl lg:text-5xl lg:mb-5 font-bold mb-2 text-gray-800">
+                  <h2 className="text-3xl lg:text-5xl lg:mb-5 font-bold mb-2 mt-3 text-gray-800">
                     {product.name}
                   </h2>
                   <p className="text-lg lg:text-2xl text-gray-600">
