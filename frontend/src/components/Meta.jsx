@@ -1,11 +1,7 @@
 import { Helmet } from "react-helmet-async";
 import PropTypes from "prop-types";
 
-const Meta = ({
-  title = "Welcome To techShop",
-  description = "Discover top-quality products at unbeatable prices!",
-  keywords = "electronics, buy electronics, cheap electronics",
-}) => {
+const Meta = ({ title, description, keywords }) => {
   return (
     <Helmet>
       <title>{title}</title>
@@ -13,6 +9,12 @@ const Meta = ({
       <meta name="keywords" content={keywords} />
     </Helmet>
   );
+};
+
+Meta.defaultProps = {
+  title: "Welcome To TechShop",
+  description: "Discover top-quality products at unbeatable prices!",
+  keywords: "electronics, buy electronics, cheap electronics",
 };
 
 // Type checking

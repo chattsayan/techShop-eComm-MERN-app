@@ -11,7 +11,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../slices/cartSlice";
 import { toast } from "react-toastify";
-import Meta from "../components/Meta";
+// import Meta from "../components/Meta";
 
 const ProductScreen = () => {
   const { id: productId } = useParams();
@@ -72,7 +72,7 @@ const ProductScreen = () => {
         </Message>
       ) : (
         <>
-          <Meta title={product.name} />
+          {/* <Meta title={product.name} /> */}
           <div className="grid md:grid-cols-3 gap-6 pt-5">
             {/* Product Image */}
             <div className="md:col-span-1">
