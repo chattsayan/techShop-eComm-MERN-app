@@ -3,7 +3,7 @@ import "../index.css";
 
 const Rating = ({ value, text }) => {
   return (
-    <div className="rating flex items-center">
+    <span className="rating flex items-center">
       <span>
         {value >= 1 ? (
           <FaStar />
@@ -55,7 +55,7 @@ const Rating = ({ value, text }) => {
       </span>
 
       {text && <span className="ml-2 rating-text">{text}</span>}
-    </div>
+    </span>
   );
 };
 
