@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 dotenv.config();
 import path from "path";
 import express from "express";
-// import cors from "cors";
+import cors from "cors";
 import connectDB from "./config/database.js";
 import productRoutes from "./routes/productRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
@@ -15,12 +15,12 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 // CORS Configuration
-// app.use(
-//   cors({
-//     origin: process.env.CORS_ORIGIN,
-//     credentials: true,
-//   })
-// );
+app.use(
+  cors({
+    origin: process.env.CORS_ORIGIN,
+    credentials: true,
+  })
+);
 
 // Middleware Setup
 app.use(cookieParser());
