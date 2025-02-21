@@ -1,61 +1,22 @@
 import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
 import "../index.css";
 
-const Rating = ({ value, text }) => {
+const Rating = ({ value = 0, text = "" }) => {
   return (
-    <span className="rating flex items-center">
-      <span>
-        {value >= 1 ? (
-          <FaStar />
-        ) : value >= 0.5 ? (
-          <FaStarHalfAlt />
-        ) : (
-          <FaRegStar />
-        )}
-      </span>
-
-      <span>
-        {value >= 2 ? (
-          <FaStar />
-        ) : value >= 1.5 ? (
-          <FaStarHalfAlt />
-        ) : (
-          <FaRegStar />
-        )}
-      </span>
-
-      <span>
-        {value >= 3 ? (
-          <FaStar />
-        ) : value >= 2.5 ? (
-          <FaStarHalfAlt />
-        ) : (
-          <FaRegStar />
-        )}
-      </span>
-
-      <span>
-        {value >= 4 ? (
-          <FaStar />
-        ) : value >= 3.5 ? (
-          <FaStarHalfAlt />
-        ) : (
-          <FaRegStar />
-        )}
-      </span>
-
-      <span>
-        {value >= 5 ? (
-          <FaStar />
-        ) : value >= 4.5 ? (
-          <FaStarHalfAlt />
-        ) : (
-          <FaRegStar />
-        )}
-      </span>
-
+    <div className="rating flex items-center">
+      {[1, 2, 3, 4, 5].map((star) => (
+        <span key={star}>
+          {value >= star ? (
+            <FaStar />
+          ) : value >= star - 0.5 ? (
+            <FaStarHalfAlt />
+          ) : (
+            <FaRegStar />
+          )}
+        </span>
+      ))}
       {text && <span className="ml-2 rating-text">{text}</span>}
-    </span>
+    </div>
   );
 };
 

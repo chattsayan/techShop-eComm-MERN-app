@@ -22,7 +22,10 @@ const Product = ({ product }) => {
       </div>
 
       <div>
-        <Rating value={product.rating} text={`${product.numReviews} reviews`} />
+        <Rating
+          value={product?.rating}
+          text={`${product?.numReviews} reviews`}
+        />
       </div>
 
       <h3 className="mt-3 font-bold text-xl text-green-600">
