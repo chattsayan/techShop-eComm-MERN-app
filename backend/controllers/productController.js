@@ -69,9 +69,8 @@ const updateProduct = asyncHandler(async (req, res) => {
     product.name = name;
     product.price = price;
     product.description = description;
-    product.image = image.startsWith("/uploads")
-      ? `${process.env.BASE_URL}${image}`
-      : image;
+    // product.image = image.startsWith("/uploads") ? `${process.env.BASE_URL}${image}` : image;
+    product.image = image;
     product.brand = brand;
     product.category = category;
     product.countInStock = countInStock;
