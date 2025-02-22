@@ -12,13 +12,16 @@ const ProductCarousel = () => {
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % products.length);
     }, 4000); // Auto-slide every 4 seconds
+
     return () => clearInterval(interval);
   }, [products]);
 
   return isLoading ? (
     <Loader />
   ) : error ? (
-    <Message variant="danger">{error}</Message>
+    <Message variant="danger">
+      {error?.data?.error || JSON.stringify(error)}
+    </Message>
   ) : (
     <div className="md:mx-auto lg:w-[75%] overflow-hidden relative drop-shadow-lg py-11">
       <div
@@ -46,7 +49,7 @@ const ProductCarousel = () => {
                     {product.name}
                   </h2>
                   <p className="text-lg lg:text-2xl text-gray-600">
-                    {product.description}
+                    {product.description || "No description available."}
                   </p>
                 </div>
               </div>
