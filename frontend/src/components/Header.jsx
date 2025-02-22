@@ -33,7 +33,7 @@ const Header = () => {
       dispatch(resetCart());
       navigate("/login");
     } catch (err) {
-      console.error(err);
+      console.error(err?.data?.error);
     }
   };
 

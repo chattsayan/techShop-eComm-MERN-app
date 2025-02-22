@@ -14,7 +14,8 @@ const Message = ({ variant = "info", children }) => {
         variantClasses[variant] || variantClasses.info
       }`}
     >
-      {children}
+      {/* {children} */}
+      {typeof children === "object" ? JSON.stringify(children) : children}
     </div>
   );
 };
