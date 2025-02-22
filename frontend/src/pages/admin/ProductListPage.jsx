@@ -62,7 +62,7 @@ const ProductListPage = () => {
       {isLoading ? (
         <Loader />
       ) : error ? (
-        <Message variant="danger">{error}</Message>
+        <Message variant="danger">{error?.data?.error}</Message>
       ) : (
         <div className="overflow-x-auto">
           <table className="w-full border-collapse border border-gray-300 text-sm my-2">

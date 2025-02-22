@@ -113,7 +113,7 @@ const ProductEditPage = () => {
         {isLoading ? (
           <Loader />
         ) : error ? (
-          <Message variant="danger">{error?.data?.message}</Message>
+          <Message variant="danger">{error?.data?.error}</Message>
         ) : (
           <form onSubmit={submitHandler} className="space-y-4">
             <div className="my-2">

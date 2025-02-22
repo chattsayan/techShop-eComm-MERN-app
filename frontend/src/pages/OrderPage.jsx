@@ -62,19 +62,13 @@ const OrderPage = () => {
   const onApprove = (data, actions) => {
     return actions.order.capture().then(async function (details) {
       try {
-        await payOrder({ orderId, details });
+        await payOrder({ orderId, details }).unwrap();
         refetch();
         toast.success("Payment Successful");
       } catch (err) {
         toast.error(err?.data?.error || err.error);
       }
     });
-  };
-
-  const onApproveTest = async () => {
-    await payOrder({ orderId, details: { payer: {} } });
-    refetch();
-    toast.success("Payment Successful");
   };
 
   const onError = (err) => {
@@ -110,7 +104,7 @@ const OrderPage = () => {
   return isLoading ? (
     <Loader />
   ) : error ? (
-    <Message variant="danger" />
+    <Message variant="danger">{error?.data?.message || error.error}</Message>
   ) : (
     <>
       <h1 className="text-3xl font-semibold p-5">OrderID: {order._id}</h1>
@@ -137,7 +131,7 @@ const OrderPage = () => {
             </p>
             {order.isDelivered ? (
               <Message variant="success">
-                Delivered on {order.deliveredAt}
+                Delivered on {order?.deliveredAt}
               </Message>
             ) : (
               <Message variant="danger">Not Delivered</Message>

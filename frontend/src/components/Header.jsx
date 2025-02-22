@@ -14,6 +14,7 @@ import { TbLogin2, TbLogout } from "react-icons/tb";
 import { useLogoutMutation } from "../slices/usersApiSlice";
 import { logout } from "../slices/authSlice";
 import SearchBar from "./SearchBar";
+import { resetCart } from "../slices/cartSlice";
 
 const Header = () => {
   const [visible, setVisible] = useState(false);
@@ -29,6 +30,7 @@ const Header = () => {
     try {
       await logoutApiCall().unwrap();
       dispatch(logout());
+      dispatch(resetCart());
       navigate("/login");
     } catch (err) {
       console.error(err);

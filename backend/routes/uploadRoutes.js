@@ -16,33 +16,33 @@ const storage = multer.diskStorage({
   },
 });
 
-function checkFileType(file, callBack) {
-  const fileTypes = /jpg|jpeg|png/;
+function fileFilter(req, file, callBack) {
+  const fileTypes = /jpe?g|png|webp/;
+  const mimetypes = /image\/jpe?g|image\/png|image\/webp/;
+
   const extname = fileTypes.test(path.extname(file.originalname).toLowerCase());
-  const mimetype = fileTypes.test(file.mimetype);
+  const mimetype = mimetypes.test(file.mimetype);
 
   if (extname && mimetype) {
-    return callBack(null, true);
+    callBack(null, true);
   } else {
-    callBack(new Error("Images only!"));
+    callBack(new Error("Images only!"), false);
   }
 }
 
-const upload = multer({
-  storage,
-  fileFilter: (req, file, callBack) => checkFileType(file, callBack),
-});
+const upload = multer({ storage, fileFilter });
+const uploadSingleImage = upload.single("image");
 
-router.post("/", upload.single("image"), (req, res) => {
-  // console.log("File received:", req.file);
+router.post("/", (req, res) => {
+  uploadSingleImage(req, res, function (err) {
+    if (err) {
+      res.status(400).send({ message: err.message });
+    }
 
-  if (!req.file) {
-    return res.status(400).json({ message: "File upload failed" });
-  }
-
-  res.status(200).send({
-    message: "Image uploaded successfully!",
-    image: `/${req.file.path.replace(/\\/g, "/")}`,
+    res.status(200).send({
+      message: "Image uploaded successfully",
+      image: `/${req.file.path}`,
+    });
   });
 });
 
