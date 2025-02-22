@@ -17,7 +17,7 @@ const port = process.env.PORT || 5000;
 // CORS Configuration
 app.use(
   cors({
-    origin: process.env.CORS_ORIGIN,
+    origin: "https://techshop-1xmd.onrender.com",
     credentials: true,
   })
 );
